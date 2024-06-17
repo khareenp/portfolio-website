@@ -1,0 +1,19 @@
+.interests {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ECF0F1; /* Light Gray */
+  border-radius: 10px;
+  border: 2px solid #2C3E50; /* Dark Blue */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.interests h1 {
+  color: #2C3E50; /* Dark Blue */
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.interests p {
+  color: #2C3E50; /* Dark Blue */
+}

@@ -1,0 +1,22 @@
+.footer {
+  background-color: #2C3E50; /* Dark Blue */
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .footer {
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 6px 0;
+  }
+}
