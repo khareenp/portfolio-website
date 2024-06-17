@@ -1,43 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './Skills.css';
 
 const Skills = () => {
-  const url = `http://localhost:5000/api/skills`;
-  // Initialize state to manage skills and new skill input
   const [skills, setSkills] = useState([]);
   const [newSkill, setNewSkill] = useState('');
 
-  // useEffect hook to fetch skills data on component mount
-  useEffect(() => {
-    fetchSkills();
-  }, []);
+  // Define the base URL for the API
+  const baseURL = 'http://localhost:5000/api/skills';
 
-  // Function to fetch skills from the backend
-  const fetchSkills = async () => {
+  // Use useCallback to  fetchSkills function so that it doesn't change on every render
+  const fetchSkills = useCallback(async () => {
     try {
-      const response = await axios.get(url);
+      // Fetch skills from the API
+      const response = await axios.get(baseURL);
       setSkills(response.data);
     } catch (error) {
       console.error('Error fetching skills:', error);
     }
-  };
+  }, [baseURL]);
+
+  // Add fetchSkills to the dependency array
+  useEffect(() => {
+    fetchSkills();
+  }, [fetchSkills]);
 
   // Function to add a new skill
   const addSkill = async () => {
     try {
-      const response = await axios.post(url, { name: newSkill });
+      // Post new skill to the API
+      const response = await axios.post(baseURL, { name: newSkill });
+      // Update skills state with the new skill
       setSkills([...skills, response.data]);
+      // Clear the input field
       setNewSkill('');
     } catch (error) {
       console.error('Error adding skill:', error);
     }
   };
 
-  // Function to delete a skill by ID
+  // Function to delete a skill
   const deleteSkill = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/skills/${id}`);
+      // Delete skill from the API
+      await axios.delete(`${baseURL}/${id}`);
+      // Update skills state by filtering out the deleted skill
       setSkills(skills.filter(skill => skill.id !== id));
     } catch (error) {
       console.error('Error deleting skill:', error);
@@ -47,7 +54,6 @@ const Skills = () => {
   return (
     <div className="skills">
       <h1>Skills</h1>
-      {/* Grid container for skills */}
       <div className="skills-grid">
         {/* Map over the skills array and render each skill */}
         {skills.map(skill => (
